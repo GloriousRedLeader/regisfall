@@ -1,0 +1,52 @@
+# Razor Enhanced Scripts for Ultima Online by
+#   GRL  
+#   https://github.com/GloriousRedLeader/omgarturo
+#   2025-09-19
+# Use at your own risk.
+
+Player.HeadMessage(42, "Starting Move All Items From Container")
+
+# ##########################################################
+# #                                                        #
+# #              INLINED DEPENDENCIES                      #
+# #                                                        #
+# #  DO NOT EDIT THIS SECTION - AUTO-GENERATED CODE        #
+# #                                                        #
+# #  These are dependencies from fm_core that have been    #
+# #  automatically inlined. For user-editable code,        #
+# #  scroll down to the bottom of this file.               #
+# #                                                        #
+# ##########################################################
+
+def move_all_items_from_container(sourceSerial, destinationSerial):
+    for item in Items.FindBySerial(sourceSerial).Contains:
+        Player.HeadMessage(455, "Moving item {}".format(item.Name))
+        Items.Move(item, destinationSerial, item.Amount)
+        Misc.Pause(800)
+
+# ##########################################################
+# #                                                        #
+# #                 USER EDITABLE CODE                      #
+# #                                                        #
+# #  This is the original script code that you can         #
+# #  modify and customize. Edit the parameters, logic,     #
+# #  and function calls below as needed for your setup.    #
+# #                                                        #
+# #  The dependencies above have been automatically        #
+# #  inlined and should not be modified.                   #
+# ##########################################################
+
+# Moves all number of items from container 1 to container 2
+# Prompts for source container.
+# Prompts for destination container.
+
+sourceSerial = Target.PromptTarget("Pick source container")
+destinationSerial = Target.PromptTarget("Pick target container")
+
+# have to do this or it wont find items
+Items.UseItem(sourceSerial)
+Misc.Pause(650)
+Items.UseItem(destinationSerial)
+Misc.Pause(650)
+    
+move_all_items_from_container(sourceSerial, destinationSerial)

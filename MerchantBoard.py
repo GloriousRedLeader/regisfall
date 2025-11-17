@@ -3,7 +3,7 @@ from System import Byte, Int32
 import sys
 
 ITEMS_TO_MOVE = [
-    "nightshade", 
+    #"nightshade", 
     "nettlebloom", 
     "mountain sage", 
     #"leather", 
@@ -20,7 +20,7 @@ ITEMS_TO_MOVE = [
     #"empty bottle", 
     "pumpkin", 
     "apple", 
-    "dagger", 
+    #"dagger", 
     "scimitar", 
     "katana", 
     "metal box", 
@@ -94,7 +94,7 @@ while True:
                 print("Selling item ", item.Name)
                 Target.TargetExecute(item)
                 Target.WaitForTarget(3000)
-                Misc.Pause(250)
+                Misc.Pause(750)
                 soldAnItem = True
                 
                 break
