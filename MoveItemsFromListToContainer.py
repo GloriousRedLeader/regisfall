@@ -43,6 +43,7 @@ ITEMS_TO_MOVE = [
     [ "ruby",              VALUABLE_CONTAINER],
     [ "treasure map",              VALUABLE_CONTAINER],
     [ "tourmaline",              VALUABLE_CONTAINER],
+    [ "plans",              VALUABLE_CONTAINER],
     
     # Resources
     # [ "bone",              RESOURCES_CONTAINER],
@@ -56,10 +57,6 @@ ITEMS_TO_MOVE = [
     [ "logs",              RESOURCES_CONTAINER],
     [ "feather",              RESOURCES_CONTAINER],
     [ "smith's hammer",              RESOURCES_CONTAINER], # '
-    
-    
-    
-    
     
     # Farm
     [ "dried herbs",              FARM_CONTAINER],

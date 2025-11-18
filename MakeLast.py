@@ -13,14 +13,14 @@ from System import Byte, Int32
 from System.Collections.Generic import List
 import sys
 
-CRAFT_GUMP_ID = 41
+craftGumpID = Gumps.CurrentGump()
 
 while True:
-    if not Gumps.HasGump(CRAFT_GUMP_ID):
+    if not Gumps.HasGump(craftGumpID):
         print("You need to open the crafting gump and create one item")
         sys.exit()
 
-    Gumps.SendAction(CRAFT_GUMP_ID,21)
-    Gumps.WaitForGump(CRAFT_GUMP_ID,3000)
+    Gumps.SendAction(craftGumpID, 21)
+    Gumps.WaitForGump(craftGumpID, 3000)
     Misc.Pause(650)
     
