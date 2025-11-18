@@ -1,3 +1,12 @@
+# Razor Enhanced Scripts for Ultima Online by
+#   GRL  
+#   https://github.com/GloriousRedLeader/omgarturo
+#   2025-10-23
+# Use at your own risk.
+
+Player.HeadMessage(42, "Merchant Board Turn In")
+print("Close all gumps")
+
 from System.Collections.Generic import List
 from System import Byte, Int32
 import sys
@@ -15,7 +24,7 @@ ITEMS_TO_MOVE = [
     #"pine boards", 
     #"redwood boards", 
     #"bandages", 
-    "wool", 
+    #"wool", 
     "fertile dirt", 
     #"empty bottle", 
     "pumpkin", 
@@ -23,7 +32,7 @@ ITEMS_TO_MOVE = [
     #"dagger", 
     "scimitar", 
     "katana", 
-    "metal box", 
+    #"metal box", 
     "platemail gloves", 
     "plate helm", 
     "spiked shield", 
@@ -72,18 +81,38 @@ if board is None:
     print("You are not near a board!")
     sys.exit()
     
+# These are dynamic probably based on sell lists
+boardGumpId = None
+sellGumpId = None
 
+Items.UseItem(board)
+Misc.Pause(1000)
+boardGumpId = Gumps.CurrentGump()
 
+if not Gumps.HasGump(boardGumpId):
+    print("Could not find the board gump, try again")
+    sys.exit()
+    
+Gumps.SendAction(boardGumpId, 1)
+Misc.Pause(1000)
+sellGumpId = Gumps.CurrentGump()
+
+if not Gumps.HasGump(sellGumpId):
+    print("Internal error, try again")
+    sys.exit()
+    
+print("boardGumpId ", boardGumpId)
+print("sellGumpId ", sellGumpId)
 
 while True:
-    Gumps.CloseGump(BOARD_GUMP_ID)
-    Gumps.CloseGump(SELL_GUMP_ID)
+    Gumps.CloseGump(boardGumpId)
+    Gumps.CloseGump(sellGumpId)
     Items.UseItem(board)
-    Gumps.WaitForGump(BOARD_GUMP_ID, 3000)
-    Gumps.SendAction(BOARD_GUMP_ID, 1)
+    Gumps.WaitForGump(boardGumpId, 3000)
+    Gumps.SendAction(boardGumpId, 1)
     Misc.Pause(PAUSE_DELAY_MS)
-    Gumps.WaitForGump(SELL_GUMP_ID, 3000)
-    Gumps.SendAction(SELL_GUMP_ID, 1)
+    Gumps.WaitForGump(sellGumpId, 3000)
+    Gumps.SendAction(sellGumpId, 1)
     Target.WaitForTarget(3000)
     Misc.Pause(PAUSE_DELAY_MS)
     soldAnItem = False
@@ -96,7 +125,6 @@ while True:
                 Target.WaitForTarget(3000)
                 Misc.Pause(750)
                 soldAnItem = True
-                
                 break
 
     if not soldAnItem:

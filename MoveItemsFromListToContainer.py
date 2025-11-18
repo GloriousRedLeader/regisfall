@@ -4,6 +4,8 @@
 #   2025-11-16
 # Use at your own risk. 
 
+Player.HeadMessage(42, "Item Dumper")
+
 from System.Collections.Generic import List
 import sys
 from System import Byte, Int32
@@ -40,16 +42,22 @@ ITEMS_TO_MOVE = [
     [ "star sapphire",              VALUABLE_CONTAINER],
     [ "ruby",              VALUABLE_CONTAINER],
     [ "treasure map",              VALUABLE_CONTAINER],
+    [ "tourmaline",              VALUABLE_CONTAINER],
     
     # Resources
     # [ "bone",              RESOURCES_CONTAINER],
     [ "ingots",              RESOURCES_CONTAINER],
     [ "boards",              RESOURCES_CONTAINER],
+    [ "cut leather",              RESOURCES_CONTAINER],
     [ "tool kit",              RESOURCES_CONTAINER],
     [ "saw",              RESOURCES_CONTAINER],
     #[ "pickaxe",              RESOURCES_CONTAINER],
     [ "boards",              RESOURCES_CONTAINER],
+    [ "logs",              RESOURCES_CONTAINER],
+    [ "feather",              RESOURCES_CONTAINER],
     [ "smith's hammer",              RESOURCES_CONTAINER], # '
+    
+    
     
     
     
@@ -62,6 +70,8 @@ ITEMS_TO_MOVE = [
     [ "rauwolfia",              FARM_CONTAINER],
     [ "brambles",              FARM_CONTAINER],
     [ "fertile dirt",             FARM_CONTAINER],
+    [ "cut of raw ribs",             FARM_CONTAINER],
+    [ "raw bird",             FARM_CONTAINER],
     
     # LOADOUT_CONTAINER
     [ "mandrake",              LOADOUT_CONTAINER],
@@ -76,9 +86,9 @@ ITEMS_TO_MOVE = [
     [ "batwing",              LOADOUT_CONTAINER],
     [ "blood moss",              LOADOUT_CONTAINER],
     [ "empty bottle",              LOADOUT_CONTAINER],
-    [ "lockpick",              LOADOUT_CONTAINER],
-    [ "clean bandage",              LOADOUT_CONTAINER],
-    [ "cooked bird",              LOADOUT_CONTAINER],
+    #[ "lockpick",              LOADOUT_CONTAINER],
+    #[ "clean bandage",              LOADOUT_CONTAINER],
+    #[ "cooked bird",              LOADOUT_CONTAINER],
     
     [ "cranenene",              00000000],
     [ "cranenene",              00000000],

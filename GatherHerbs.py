@@ -8,7 +8,7 @@ HERBS = [
     "A Wild Nightshade Plant",
     "A Wild Mandrake Plant", 
     "A Wild Ginseng Plant", 
-    "0000", 
+    "Graveweed Plant", 
     "0000", 
     "0000", 
 ]

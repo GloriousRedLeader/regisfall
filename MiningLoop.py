@@ -4,17 +4,8 @@
 #   2025-10-17
 # Use at your own risk.
 
-# ##########################################################
-# #                                                        #
-# #              INLINED DEPENDENCIES                      #
-# #                                                        #
-# #  DO NOT EDIT THIS SECTION - AUTO-GENERATED CODE        #
-# #                                                        #
-# #  These are dependencies from fm_core that have been    #
-# #  automatically inlined. For user-editable code,        #
-# #  scroll down to the bottom of this file.               #
-# #                                                        #
-# ##########################################################
+Player.HeadMessage(42, "Mining Loop")
+print("Have a pack horse nearby")
 
 from System import Byte, Int32
 from System.Collections.Generic import List
@@ -23,16 +14,13 @@ import ctypes
 import sys
 import time
 
-Target.Cancel()
-sys.exit()
-
 BLUE_BEETLE_MOBILE_ID = 0x0317
 
-FIRE_BEETLE_MOBILE_ID = 0x00A9
+#FIRE_BEETLE_MOBILE_ID = 0x00A9
 
 INGOT_STATIC_IDS = [0x1BF2]
 
-MINER_TOOLS_STATIC_IDS = [0x0F39, 0x0E86]
+MINER_TOOLS_STATIC_IDS = [0x0E86]
 
 ORE_STATIC_IDS = [
     0x19B7, 
@@ -73,7 +61,7 @@ RESOURCE_HUE_VERITE = 0x089f
 
 SAND_STATIC_IDS = [0x423A]
 
-STONE_STATIC_IDS = [0x1779]
+STONE_STATIC_IDS = [0x1779] # 0x053B
 
 def find_all_in_container_by_id(itemID, containerSerial = Player.Backpack.Serial):
     return Items.FindAllByID(itemID, -1, containerSerial, 1)
@@ -186,7 +174,22 @@ def get_tile_in_front(distance = 1):
         tileX = playerX - distance
         tileY = playerY
         tileZ = playerZ
-    return tileX, tileY, tileZ
+        
+    #Statics.GetStaticsTileInfo(x,y,map)
+    
+    
+    
+    
+    
+   # Statics.GetStaticsTileInfo(x,y,map)
+    tiles = Statics.GetStaticsTileInfo(tileX, tileY, Player.Map)
+    #for tile in tiles:
+    #    print(tile.StaticID, tile.StaticZ, tile.Z)
+
+    staticId = 0
+    if len(tiles) > 0:
+        staticId = tiles[0].StaticID
+    return tileX, tileY, tileZ, staticId
 
 def move(x):
     for _ in range(x):
@@ -217,21 +220,21 @@ def getMinerTool():
         if miningTool is not None:
             return miningTool    
 
-def get_tile_in_front_serial():
-    tileX, tileY, tileZ = get_tile_in_front()
+#def get_tile_in_front_serial():
+#    tileX, tileY, tileZ = get_tile_in_front()
     #tileinfo = Statics.GetStaticsLandInfo(tileX, tileY, Player.Map)
 
-    filter = Items.Filter()
+#    filter = Items.Filter()
     # 0x053B is Cave floor
     # 0x0018 is Sand
-    filter.Graphics = List[Int32]((0x053B)) 
-    filter.OnGround = True
-    filter.RangeMax = 1
-    items = Items.ApplyFilter(filter)
-    for item in items:
-        if item.Position.X == tileX and item.Position.Y == tileY:
-            return item.Serial, tileX, tileY, tileZ 
-    return None, tileX, tileY, tileZ 
+#    filter.Graphics = List[Int32]((0x053B)) 
+#    filter.OnGround = True
+#    filter.RangeMax = 1
+#    items = Items.ApplyFilter(filter)
+#    for item in items:
+#        if item.Position.X == tileX and item.Position.Y == tileY:
+#            return item.Serial, tileX, tileY, tileZ 
+#    return None, tileX, tileY, tileZ 
 
 def move_items_to_pack_animal(itemIds, packAnimalMobileId, itemMoveDelayMs):
     for itemId in itemIds:
@@ -247,27 +250,27 @@ def move_items_to_pack_animal(itemIds, packAnimalMobileId, itemMoveDelayMs):
                     Items.Move(item, packAnimal.Backpack.Serial, item.Amount)
                     Misc.Pause(itemMoveDelayMs)
 
-def smelt_ore(forgeAnimalMobileId, itemMoveDelayMs):
-    forgeAnimals = get_pets(range = 2, checkLineOfSight = True, mobileId = forgeAnimalMobileId)
-    if len(forgeAnimals) > 0:
-        for oreId in ORE_STATIC_IDS:
-            ores = find_all_in_container_by_id(oreId, Player.Backpack.Serial)
-            for ore in ores:
-                Journal.Clear()
-                Items.UseItem(ore)
-                Target.WaitForTarget(5000, True)
-                Target.TargetExecute(forgeAnimals[0])
-                Misc.Pause(itemMoveDelayMs)
-                if Journal.Search("There is not enough metal-bearing ore in this pile to make an ingot."):
-                    print(ore)
-                    print(ore.Serial)
-                    #tileX, tileY, tileZ = get_tile_in_front()
-                    tileX, tileY, tileZ = get_tile_behind(2)
-                    Items.MoveOnGround(ore, 0, tileX, tileY , 0)
-                    Misc.Pause(itemMoveDelayMs)
-        Misc.Pause(itemMoveDelayMs)     
-    else:
-        print("No forge animal found")
+#def smelt_ore(forgeAnimalMobileId, itemMoveDelayMs):
+#    forgeAnimals = get_pets(range = 2, checkLineOfSight = True, mobileId = forgeAnimalMobileId)
+#    if len(forgeAnimals) > 0:
+#        for oreId in ORE_STATIC_IDS:
+#            ores = find_all_in_container_by_id(oreId, Player.Backpack.Serial)
+#            for ore in ores:
+#                Journal.Clear()
+#                Items.UseItem(ore)
+#                Target.WaitForTarget(5000, True)
+#                Target.TargetExecute(forgeAnimals[0])
+#                Misc.Pause(itemMoveDelayMs)
+#                if Journal.Search("There is not enough metal-bearing ore in this pile to make an ingot."):
+#                    print(ore)
+#                    print(ore.Serial)
+#                    #tileX, tileY, tileZ = get_tile_in_front()
+#                    tileX, tileY, tileZ = get_tile_behind(2)
+#                    Items.MoveOnGround(ore, 0, tileX, tileY , 0)
+#                    Misc.Pause(itemMoveDelayMs)
+#        Misc.Pause(itemMoveDelayMs)     
+#    else:
+#        print("No forge animal found")
 
 def run_mining_loop(
 
@@ -281,10 +284,10 @@ def run_mining_loop(
     keepItemHues = [RESOURCE_HUE_DULL_COPPER, RESOURCE_HUE_SHADOW_IRON, RESOURCE_HUE_COPPER, RESOURCE_HUE_BRONZE, RESOURCE_HUE_GOLD, RESOURCE_HUE_AGAPITE, RESOURCE_HUE_VERITE, RESOURCE_HUE_VALORITE],
 
     # (Optional) The mobile ID of your pack animal. NOT the Serial. Defaults to blue beetle.
-    packAnimalMobileId = BLUE_BEETLE_MOBILE_ID,       
+    packAnimalMobileId = None,       
     
     # (Optional) The mobile ID of your forge animal. NOT the serial. Defaults to fire beetle.
-    forgeAnimalMobileId = FIRE_BEETLE_MOBILE_ID,
+    #forgeAnimalMobileId = FIRE_BEETLE_MOBILE_ID,
     
     # (Optional) Number of miliseconds between item moves typically from one pack to another.
     itemMoveDelayMs = 1000
@@ -292,19 +295,33 @@ def run_mining_loop(
                 
     while True:
         drop_unwanted_resources(INGOT_STATIC_IDS + STONE_STATIC_IDS + ORE_STATIC_IDS, keepItemHues, itemMoveDelayMs) 
-        smelt_ore(forgeAnimalMobileId, itemMoveDelayMs)
-        move_items_to_pack_animal(INGOT_STATIC_IDS + STONE_STATIC_IDS + SAND_STATIC_IDS, packAnimalMobileId, itemMoveDelayMs)
+        #smelt_ore(forgeAnimalMobileId, itemMoveDelayMs)
+        
+        if packAnimalMobileId is not None:
+            move_items_to_pack_animal(INGOT_STATIC_IDS + STONE_STATIC_IDS + SAND_STATIC_IDS, packAnimalMobileId, itemMoveDelayMs)
+            
         miningTool = getMinerTool()
         
         Journal.Clear()
+        print("Mining Tool ", miningTool.Name)
         Items.UseItem(miningTool)
         Target.WaitForTarget(5000, True)
         
-        tileSerial, tileX, tileY, tileZ  = get_tile_in_front_serial()
-        if tileSerial is not None:
-            Target.TargetExecute(tileSerial)
-        else:
-            Target.TargetExecute(tileX, tileY, tileZ)
+        tileX, tileY, tileZ, staticID  = get_tile_in_front()
+        
+        print(tileX, tileY, tileZ, staticID)
+        Target.TargetExecute(tileX, tileY, tileZ, staticID)
+        
+        #tileSerial, tileX, tileY, tileZ  = get_tile_in_front_serial()
+        #if tileSerial is not None:
+        #    print("Method 1")
+        #    Target.TargetExecute(tileSerial)
+        #else:
+        #    print("Method 2")
+        #    print(tileX, tileY, tileZ)
+        #    Target.TargetExecute(tileX, tileY, tileZ)
+        #    #Target.TargetExecute(2170, 955 ,-45 ,1340) # 0x053C = 1340
+        #    Target.TargetExecute(x,y,z,StaticID)
         
         Misc.Pause(itemMoveDelayMs)
         
@@ -312,6 +329,9 @@ def run_mining_loop(
             move(numTilesToMove)
 
         Misc.Pause(int(itemMoveDelayMs / 2))
+        
+        
+        
 
 # ##########################################################
 # #                                                        #
@@ -343,10 +363,10 @@ run_mining_loop(
     keepItemHues = [RESOURCE_HUE_DEFAULT, RESOURCE_HUE_DULL_COPPER, RESOURCE_HUE_SHADOW_IRON, RESOURCE_HUE_COPPER, RESOURCE_HUE_BRONZE, RESOURCE_HUE_GOLD, RESOURCE_HUE_AGAPITE, RESOURCE_HUE_VERITE, RESOURCE_HUE_VALORITE],
 
     # (Optional) The mobile ID of your pack animal. NOT the Serial. Defaults to blue beetle.
-    packAnimalMobileId = BLUE_BEETLE_MOBILE_ID,       
+    packAnimalMobileId = None,       
     
     # (Optional) The mobile ID of your forge animal. NOT the serial. Defaults to fire beetle.
-    forgeAnimalMobileId = FIRE_BEETLE_MOBILE_ID,
+    #forgeAnimalMobileId = FIRE_BEETLE_MOBILE_ID,
     
     # (Optional) Number of miliseconds between item moves typically from one pack to another.
     itemMoveDelayMs = 1000
