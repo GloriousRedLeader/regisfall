@@ -34,16 +34,18 @@ ITEMS_TO_MOVE = [
     [ "emerald",              VALUABLE_CONTAINER],
     [ "amethyst",              VALUABLE_CONTAINER],
     [ "arcane gem",              VALUABLE_CONTAINER],
-    [ "flawless sapphire",              VALUABLE_CONTAINER],
     [ "power crystal",              VALUABLE_CONTAINER],
     [ "sealed note",              VALUABLE_CONTAINER],
     [ "wire",              VALUABLE_CONTAINER],
     [ "diamond",              VALUABLE_CONTAINER],
-    [ "star sapphire",              VALUABLE_CONTAINER],
+    [ "sapphire",              VALUABLE_CONTAINER],
     [ "ruby",              VALUABLE_CONTAINER],
     [ "treasure map",              VALUABLE_CONTAINER],
     [ "tourmaline",              VALUABLE_CONTAINER],
+    [ "amber",              VALUABLE_CONTAINER],
     [ "plans",              VALUABLE_CONTAINER],
+    [ "rubie",              VALUABLE_CONTAINER],
+    [ "recipe",              VALUABLE_CONTAINER],
     
     # Resources
     # [ "bone",              RESOURCES_CONTAINER],
@@ -56,7 +58,10 @@ ITEMS_TO_MOVE = [
     [ "boards",              RESOURCES_CONTAINER],
     [ "logs",              RESOURCES_CONTAINER],
     [ "feather",              RESOURCES_CONTAINER],
+    [ "pile of wool",              RESOURCES_CONTAINER],
+    [ "bale of cotton",              RESOURCES_CONTAINER],
     [ "smith's hammer",              RESOURCES_CONTAINER], # '
+    [ "ore",              RESOURCES_CONTAINER],
     
     # Farm
     [ "dried herbs",              FARM_CONTAINER],
@@ -69,6 +74,9 @@ ITEMS_TO_MOVE = [
     [ "fertile dirt",             FARM_CONTAINER],
     [ "cut of raw ribs",             FARM_CONTAINER],
     [ "raw bird",             FARM_CONTAINER],
+    [ "nettlebloom",             FARM_CONTAINER],
+    [ "mountain sage",             FARM_CONTAINER],
+    [ "wild tobacco",             FARM_CONTAINER],
     
     # LOADOUT_CONTAINER
     [ "mandrake",              LOADOUT_CONTAINER],
@@ -83,6 +91,7 @@ ITEMS_TO_MOVE = [
     [ "batwing",              LOADOUT_CONTAINER],
     [ "blood moss",              LOADOUT_CONTAINER],
     [ "empty bottle",              LOADOUT_CONTAINER],
+    [ "bola balls",              LOADOUT_CONTAINER],
     #[ "lockpick",              LOADOUT_CONTAINER],
     #[ "clean bandage",              LOADOUT_CONTAINER],
     #[ "cooked bird",              LOADOUT_CONTAINER],
@@ -104,17 +113,21 @@ def move_items_from_container_recursive(container):
                 for destContainerSerial in s[1:]:
                     
                     destContainer = Items.FindBySerial(destContainerSerial)
-                    #if destContainer is not None and Player.DistanceTo(destContainer) < 2:
-                    if destContainer is not None:
+                    if destContainer is not None and Player.DistanceTo(destContainer) < 2:
+                    #if destContainer is not None:                        
                         Items.Move(item, destContainerSerial, item.Amount);
                         Misc.Pause(PAUSE_DELAY)
                         foundAndMoved = True
                         break    
             if foundAndMoved:
-                print(item.Name, " moved to ", destContainer.Name)
+                print(item.Name, " moved to ", destContainer.Name, " x ", item.Amount)
+                break
+                
 
         if item.IsContainer:
             move_items_from_container_recursive(item)
 
 # Unload players
 move_items_from_container_recursive(Player.Backpack)
+
+print("Done")

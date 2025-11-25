@@ -78,7 +78,28 @@ def cut_leather(scissors, leatherContainerSerial):
         Target.TargetExecute(hides)
         Misc.Pause(100)
 
+from collections import deque
+
+class NumberCache:
+    def __init__(self, max_size=30):
+        self.cache = deque(maxlen=max_size)  # Auto-cycles when full
+    
+    def add(self, number):
+        """Add a number to the cache"""
+        self.cache.append(number)  # Automatically removes oldest when at maxlen
+    
+    def contains(self, number):
+        """Check if number is in cache"""
+        return number in self.cache
+    
+    def get_all(self):
+        """Get all cached numbers"""
+        return list(self.cache)
+        
+cache = NumberCache(max_size = 30)
+
 while True:
+    
     skin = Items.Filter()
     skin.Enabled = True
     skin.RangeMin = 0
@@ -86,16 +107,21 @@ while True:
     skin.IsCorpse = True
     corpses = Items.ApplyFilter(skin)
     for corpse in corpses:
+        if cache.contains(corpse.Serial) or not Player.Visible:
+            continue
+            
         Items.UseItem(dagger)
         Target.WaitForTarget(1000)
         Target.TargetExecute(corpse)
+        Misc.Pause(750)
+        Items.UseItem(corpse)
         Misc.Pause(750)
         hides = Items.FindByID(PILE_OF_HIDES_STATIC_ID, -1, corpse.Serial, 0)
         if hides is not None:
             Items.Move(hides, leatherContainerSerial, hides.Amount)
             Misc.Pause(650)
             cut_leather(scissors, leatherContainerSerial)
-
+        cache.add(corpse.Serial)
     cut_leather(scissors, leatherContainerSerial)
     
     Misc.Pause(250)

@@ -11,5 +11,33 @@ if kryss is None:
     print("No weapon found")
     sys.exit()
     
+#print(Items.GetPropValue(kryss, "Greater Poison Charges"))
+#sys.exit()    
+poison = Items.FindByID(0x0F0A, 0, Player.Backpack.Serial, 0)
+if poison is None:
+    print("No poison found")
+    sys.exit()
+    
+Player.UseSkill("Poisoning")
+Target.WaitForTarget(3000)
+Target.TargetExecute(poison)
+Target.WaitForTarget(3000)
+Target.TargetExecute(kryss)
+sys.exit()
+    
 for p in Items.GetProperties(kryss.Serial, 3000):
     print(p)
+    
+print("*************************")
+for p in kryss.Properties:
+    print(p)
+    
+print("*************************")
+print("*************************")
+for p in Items.GetPropStringList(kryss.Serial):
+    print(p)
+    
+    
+print("*************************")
+print("*************************")
+print(Items.GetPropValue(kryss, "regular poison charges"))

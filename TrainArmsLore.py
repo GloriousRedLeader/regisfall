@@ -7,4 +7,4 @@ if item is not None:
         Player.UseSkill("Arms Lore")
         Target.WaitForTarget(3000)
         Target.TargetExecute(item)
-        Misc.Pause(750)
+        Misc.Pause(2000)
