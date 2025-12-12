@@ -12,7 +12,7 @@ HERBS = [
     "A Wild Garlic Plant", 
     "Mountain Sage Plant", 
     "Wild Nettlebloom", 
-    "0000", 
+    "Bloodroot Plant", 
     "0000", 
     "0000", 
 ]

@@ -16,6 +16,7 @@ from System import Byte, Int32
 # If youre at the bank, drop it into a bag there, or if youre at yoru house, drop it in a chest there.
 
 VALUABLE_CONTAINER = 0x4004C686
+MAP_CONTAINER = 0x400B946C
 RESOURCES_CONTAINER = 0x40133415
 FARM_CONTAINER = 0x40133427
 LOADOUT_CONTAINER = 0x4012484B
@@ -40,12 +41,16 @@ ITEMS_TO_MOVE = [
     [ "diamond",              VALUABLE_CONTAINER],
     [ "sapphire",              VALUABLE_CONTAINER],
     [ "ruby",              VALUABLE_CONTAINER],
-    [ "treasure map",              VALUABLE_CONTAINER],
     [ "tourmaline",              VALUABLE_CONTAINER],
     [ "amber",              VALUABLE_CONTAINER],
     [ "plans",              VALUABLE_CONTAINER],
     [ "rubie",              VALUABLE_CONTAINER],
     [ "recipe",              VALUABLE_CONTAINER],
+    [ "weapon augment",              VALUABLE_CONTAINER],
+    [ "conquest token",              VALUABLE_CONTAINER],
+    
+    # Maps
+    [ "treasure map",              MAP_CONTAINER],
     
     # Resources
     # [ "bone",              RESOURCES_CONTAINER],
@@ -62,6 +67,7 @@ ITEMS_TO_MOVE = [
     [ "bale of cotton",              RESOURCES_CONTAINER],
     [ "smith's hammer",              RESOURCES_CONTAINER], # '
     [ "ore",              RESOURCES_CONTAINER],
+    [ "dragon scale",              RESOURCES_CONTAINER],
     
     # Farm
     [ "dried herbs",              FARM_CONTAINER],
@@ -77,6 +83,10 @@ ITEMS_TO_MOVE = [
     [ "nettlebloom",             FARM_CONTAINER],
     [ "mountain sage",             FARM_CONTAINER],
     [ "wild tobacco",             FARM_CONTAINER],
+    [ "seed",             FARM_CONTAINER],
+    [ "green thorns",             FARM_CONTAINER],
+    [ "grave weed",             FARM_CONTAINER],
+    [ "broadleaf",             FARM_CONTAINER],
     
     # LOADOUT_CONTAINER
     [ "mandrake",              LOADOUT_CONTAINER],
@@ -92,11 +102,12 @@ ITEMS_TO_MOVE = [
     [ "blood moss",              LOADOUT_CONTAINER],
     [ "empty bottle",              LOADOUT_CONTAINER],
     [ "bola balls",              LOADOUT_CONTAINER],
-    #[ "lockpick",              LOADOUT_CONTAINER],
-    #[ "clean bandage",              LOADOUT_CONTAINER],
+    [ "arrow",              LOADOUT_CONTAINER],
+    [ "lockpick",              LOADOUT_CONTAINER],
+    [ "clean bandage",              LOADOUT_CONTAINER],
     #[ "cooked bird",              LOADOUT_CONTAINER],
     
-    [ "cranenene",              00000000],
+    [ "crossbow bolt",              LOADOUT_CONTAINER],
     [ "cranenene",              00000000],
 
 ]
@@ -113,7 +124,7 @@ def move_items_from_container_recursive(container):
                 for destContainerSerial in s[1:]:
                     
                     destContainer = Items.FindBySerial(destContainerSerial)
-                    if destContainer is not None and Player.DistanceTo(destContainer) < 2:
+                    if destContainer is not None and Player.DistanceTo(destContainer) <= 2:
                     #if destContainer is not None:                        
                         Items.Move(item, destContainerSerial, item.Amount);
                         Misc.Pause(PAUSE_DELAY)

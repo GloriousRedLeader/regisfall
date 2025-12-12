@@ -99,29 +99,31 @@ class NumberCache:
 cache = NumberCache(max_size = 30)
 
 while True:
-    
-    skin = Items.Filter()
-    skin.Enabled = True
-    skin.RangeMin = 0
-    skin.RangeMax = 2
-    skin.IsCorpse = True
-    corpses = Items.ApplyFilter(skin)
-    for corpse in corpses:
-        if cache.contains(corpse.Serial) or not Player.Visible:
-            continue
-            
-        Items.UseItem(dagger)
-        Target.WaitForTarget(1000)
-        Target.TargetExecute(corpse)
-        Misc.Pause(750)
-        Items.UseItem(corpse)
-        Misc.Pause(750)
-        hides = Items.FindByID(PILE_OF_HIDES_STATIC_ID, -1, corpse.Serial, 0)
-        if hides is not None:
-            Items.Move(hides, leatherContainerSerial, hides.Amount)
-            Misc.Pause(650)
-            cut_leather(scissors, leatherContainerSerial)
-        cache.add(corpse.Serial)
-    cut_leather(scissors, leatherContainerSerial)
-    
-    Misc.Pause(250)
+    while Player.Visible:
+        skin = Items.Filter()
+        skin.Enabled = True
+        skin.RangeMin = 0
+        skin.RangeMax = 2
+        skin.IsCorpse = True
+        corpses = Items.ApplyFilter(skin)
+        for corpse in corpses:
+            if cache.contains(corpse.Serial) or not Player.Visible:
+                continue
+                
+            Items.UseItem(dagger)
+            Target.WaitForTarget(1000)
+            Target.TargetExecute(corpse)
+            Misc.Pause(750)
+            Items.UseItem(corpse)
+            Misc.Pause(750)
+            hides = Items.FindByID(PILE_OF_HIDES_STATIC_ID, -1, corpse.Serial, 0)
+            if hides is not None:
+                Items.Move(hides, leatherContainerSerial, hides.Amount)
+                Misc.Pause(650)
+                cut_leather(scissors, leatherContainerSerial)
+            cache.add(corpse.Serial)
+        cut_leather(scissors, leatherContainerSerial)
+        
+        Misc.Pause(250)
+
+    Misc.Pause(1000)

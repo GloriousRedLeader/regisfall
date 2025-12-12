@@ -8,6 +8,9 @@ import time
 kryss = Player.GetItemOnLayer("RightHand")
 
 if kryss is None:
+    kryss = Player.GetItemOnLayer("LeftHand")
+
+if kryss is None:
     print("No weapon found")
     sys.exit()
     
