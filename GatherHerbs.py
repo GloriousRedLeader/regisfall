@@ -13,7 +13,8 @@ HERBS = [
     "Mountain Sage Plant", 
     "Wild Nettlebloom", 
     "Bloodroot Plant", 
-    "0000", 
+    "Kingsfoil Plant", 
+    "Patch of Tundra Moss", 
     "0000", 
 ]
 

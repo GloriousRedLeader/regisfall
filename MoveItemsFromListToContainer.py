@@ -20,12 +20,19 @@ MAP_CONTAINER = 0x400B946C
 RESOURCES_CONTAINER = 0x40133415
 FARM_CONTAINER = 0x40133427
 LOADOUT_CONTAINER = 0x4012484B
+RARE_CONTAINER = 0x40124850
 
 # You can add multiple destination containers, e.g. dump coins into 
 # a barrel on porch of house 1 or a chest upstairs. It will check
 # for the first one in range and use that.
 
 ITEMS_TO_MOVE = [
+
+    # Rares
+    [ "covered chair",              RARE_CONTAINER],
+    [ "skull with candle",              RARE_CONTAINER],
+    [ "rope",              RARE_CONTAINER],
+    [ "0000",              RARE_CONTAINER],
 
     # Valuables
     [ "gold coin",              VALUABLE_CONTAINER],
@@ -48,6 +55,7 @@ ITEMS_TO_MOVE = [
     [ "recipe",              VALUABLE_CONTAINER],
     [ "weapon augment",              VALUABLE_CONTAINER],
     [ "conquest token",              VALUABLE_CONTAINER],
+    [ "arcane essence",              VALUABLE_CONTAINER],
     
     # Maps
     [ "treasure map",              MAP_CONTAINER],
@@ -68,6 +76,9 @@ ITEMS_TO_MOVE = [
     [ "smith's hammer",              RESOURCES_CONTAINER], # '
     [ "ore",              RESOURCES_CONTAINER],
     [ "dragon scale",              RESOURCES_CONTAINER],
+    [ "bloodroot",              RESOURCES_CONTAINER],
+    [ "dragon's blood",              RESOURCES_CONTAINER], # '
+    
     
     # Farm
     [ "dried herbs",              FARM_CONTAINER],
@@ -87,6 +98,8 @@ ITEMS_TO_MOVE = [
     [ "green thorns",             FARM_CONTAINER],
     [ "grave weed",             FARM_CONTAINER],
     [ "broadleaf",             FARM_CONTAINER],
+    [ "tundra moss",             FARM_CONTAINER],
+    [ "kingsfoil",             FARM_CONTAINER],
     
     # LOADOUT_CONTAINER
     [ "mandrake",              LOADOUT_CONTAINER],
@@ -106,7 +119,7 @@ ITEMS_TO_MOVE = [
     [ "lockpick",              LOADOUT_CONTAINER],
     [ "clean bandage",              LOADOUT_CONTAINER],
     #[ "cooked bird",              LOADOUT_CONTAINER],
-    
+    [ "daemon bone",              LOADOUT_CONTAINER],
     [ "crossbow bolt",              LOADOUT_CONTAINER],
     [ "cranenene",              00000000],
 
